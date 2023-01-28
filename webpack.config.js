@@ -1,19 +1,22 @@
-const path = require('path')
-const HTMLWebpackPlugin = require('html-webpack-plugin')
-const WasmPackPlugin = require('@wasm-tool/wasm-pack-plugin')
+const path = require("path")
+const HTMLWebpackPlugin = require("html-webpack-plugin")
+const WasmPackPlugin = require("@wasm-tool/wasm-pack-plugin")
 
 module.exports = {
-    entry: './src/index.js',
+    entry: {
+        bundle: "./src/index.js"
+    },
     output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle.js'
+        path: path.resolve(__dirname, "dist"),
+        filename: "js/[name].js",
+        publicPath: ""
     },
     plugins: [
         new HTMLWebpackPlugin({
-            template: './src/index.html'
+            template: "./src/index.html"
         }),
         new WasmPackPlugin({
-            crateDirectory: path.resolve(__dirname, './src/wasm/snake')
+            crateDirectory: path.resolve(__dirname, "./src/wasm/snake")
         })
     ],
     experiments: {
