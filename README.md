@@ -1,13 +1,17 @@
 # Wasm snake with Rust
 
+Installation des dépendances de developpement.
+
+```
 npm i -D webpack webpack-cli webpack-dev-server
 npm i -D @wasm-tool/wasm-pack-plugin html-webpack-plugin
+```
 
 ## Additional packages
 
-wasmpack:      https://github.com/rustwasm/wasm-pack
-wasm-bindgen:  https://github.com/rustwasm/wasm-bindgen
-web-sys:       https://rustwasm.github.io/wasm-bindgen/web-sys/index.html
+* wasmpack:      https://github.com/rustwasm/wasm-pack
+* wasm-bindgen:  https://github.com/rustwasm/wasm-bindgen
+* web-sys:       https://rustwasm.github.io/wasm-bindgen/web-sys/index.html
 
 Voici le fichier Cargo.toml
 
@@ -30,13 +34,13 @@ features = ["console"]
 
 ## Webpack configuration
 
+Il faut faire attention à outputDir quand les sources Rust ne sont pas à la racine!
+
+```
 const path = require("path")
 const HTMLWebpackPlugin = require("html-webpack-plugin")
 const WasmPackPlugin = require("@wasm-tool/wasm-pack-plugin")
 
-Il faut faire attention à outputDir quand les sources Rust ne sont pas à la racine!
-
-```
 module.exports = {
     entry: {
         bundle: "./src/index.js"
@@ -133,6 +137,7 @@ wasm-pack build --target web
 
 This is important when using wasm memory buffer
 
+```
 import init, { World, Direction, GameStatus } from "snake"
 import { rnd } from "./wasm/snake/rnd"
 
@@ -141,5 +146,10 @@ init().then(wasm => {
     wasm.memory.buffer,
     ...
 }
+```
 
-=> remove the use of the plugin, and build manually
+=> set extraArgs dans webpack config, wasm-pack plugin configuration
+
+```
+            extraArgs: '--target web',
+```
