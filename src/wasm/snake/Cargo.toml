@@ -8,7 +8,15 @@ crate-type = ["cdylib"]
 
 [dependencies]
 wasm-bindgen = "0.2.83"
+wee_alloc = "0.4.5"
 
 [dependencies.web-sys]
 version = "0.3.60"
 features = ["console"]
+
+# Using wee_alloc does not bring a lot, in fact, the size increased from 60Kib to 80Kib
+# Using s optimization reduced the wasm file to 25Kib with wee_alloc, 29Kib without
+# 
+[profile.dev.package."*"]
+# Optimize with "s" or "z"
+opt-level = "s"
