@@ -4,6 +4,7 @@ use wee_alloc::WeeAlloc;
 // use web_sys::console::log_1 as log;
 
 // Use `wee_alloc` as the global allocator.
+#[cfg(feature = "wee_alloc")]
 #[global_allocator]
 static ALLOC: WeeAlloc = WeeAlloc::INIT;
 
